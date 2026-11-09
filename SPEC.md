@@ -9,7 +9,7 @@ Goal: find companies with Exa's search API, then detect which have a public Gree
 
 ## CLI
 `python3 board_finder.py "QUERY" [--n 25] [--known PATH]`
-- `--known` defaults to `~/Obsidian/keenan/scripts/job_scout_companies.txt` if it exists.
+- `--known` defaults to the `BOARD_FINDER_KNOWN` env var; with neither, every board found is NEW.
 
 ## API key
 - Read `EXA_API_KEY` from env; else from `~/.config/exa/env` (line `EXA_API_KEY=...`, ignore blank/# lines). Never print, log, or include the key in errors. Missing key: exit 2 with a one-line setup message.

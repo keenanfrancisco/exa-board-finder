@@ -14,7 +14,6 @@ import urllib.request
 
 USER_AGENT = "exa-board-finder/0.1"
 EXA_SEARCH_URL = "https://api.exa.ai/search"
-DEFAULT_KNOWN_PATH = Path("~/Obsidian/keenan/scripts/job_scout_companies.txt")
 PROBE_URLS = (
     ("greenhouse", "https://boards-api.greenhouse.io/v1/boards/{slug}/jobs"),
     ("lever", "https://api.lever.co/v0/postings/{slug}?mode=json"),
@@ -256,8 +255,8 @@ def main(argv=None):
         )
         return 2
 
-    known_path = Path(args.known).expanduser() if args.known else DEFAULT_KNOWN_PATH.expanduser()
-    known = load_known(known_path)
+    known_arg = args.known or os.environ.get("BOARD_FINDER_KNOWN")
+    known = load_known(Path(known_arg).expanduser()) if known_arg else set()
 
     try:
         results = _search_exa(args.query, args.n, api_key)
